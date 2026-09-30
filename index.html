@@ -8,7 +8,8 @@
 /* Anzeige der Orchester-Akademie 5b für das Smartboard: Die ganze Klasse baut gemeinsam ein Orchester auf.
    Jeder Klangpunkt = eine Musiker:in auf der Bühne. Bewusst hell und ohne Grün/Gelb/Rot,
    damit nichts mit dem Ampel-System der Klasse verwechselt wird. Läuft komplett offline (eine Datei).
-   Der Stand wird im Browser gespeichert; per Adresse setzbar: ...index.html?p=25 */
+   Der Stand wird im Browser gespeichert; per Adresse setzbar: ...index.html?p=25
+   Aufgaben (Klangpunkte) pro Stundentag stehen fest in PLAN (Skript unten), damit sie ein Neuladen überstehen. */
 :root{
   --hall:#E8ECF1; --surface:#FFFFFF; --screen:#F7F9FB; --line:#C9D1DC;
   --ink:#162033; --muted:#566174; --new:#1C5FD4;
@@ -165,17 +166,34 @@ body.present .float{display:flex}
   const $ = id => document.getElementById(id);
   const svg = $('svg');
 
+  // Aufgaben pro Stundentag (Datum JJJJ-MM-TT). Gilt einmal am jeweiligen Tag; was danach von Hand
+  // in den Feldern geändert wird, bleibt bis zum nächsten Tag. start = Stand, falls der Browser nichts gespeichert hat.
+  const PLAN = {
+    '2026-10-01': {start: 25, chips: ['🎤 Stimm-Experiment +5', '✏️ Stundenblatt +5', '👂 Hör-Rätsel +5']}
+  };
+
   function start(){
     return {
-      total: 10, goal: 140, sound: true, history: [],
-      log: [{label: 'Stunde 1 (17.09.)', plus: 10}],
+      total: 25, goal: 140, sound: true, history: [],
+      log: [{label: 'Stunde 1 (17.09.)', plus: 10}, {label: 'Stunde 2 (24.09.)', plus: 15}],
       chips: ['🎧 Hör-Detektiv +5', '✏️ Stundenblatt +5', '🎵 Tetris-Playalong +5']
     };
   }
-  let state = start();
+  let state = start(), hadSaved = false;
   try {
     const raw = localStorage.getItem(STORE);
-    if (raw) { const s = JSON.parse(raw); if (s && typeof s.total === 'number') state = Object.assign(start(), s); }
+    if (raw) { const s = JSON.parse(raw); if (s && typeof s.total === 'number') { state = Object.assign(start(), s); hadSaved = true; } }
+  } catch(e) {}
+  // Tagesplan anwenden (einmal pro Tag)
+  try {
+    const d = new Date();
+    const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const plan = PLAN[key];
+    if (plan && state.planDay !== key) {
+      state.chips = plan.chips.slice();
+      if (!hadSaved && typeof plan.start === 'number') state.total = plan.start;
+      state.planDay = key;
+    }
   } catch(e) {}
   // Stand per Adresse setzen, z. B. ?p=25 (und optional &ziel=140)
   try {
@@ -185,6 +203,7 @@ body.present .float{display:flex}
     if (!isNaN(z) && z >= 20 && z <= 200) state.goal = z;
   } catch(e) {}
   function save(){ try { localStorage.setItem(STORE, JSON.stringify(state)); } catch(e) {} }
+  save();
 
   const today = () => state.history.reduce((a,b) => a + b, 0);
 
