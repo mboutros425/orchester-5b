@@ -117,7 +117,7 @@ body.present .float{display:flex}
               <input type="number" id="setTotal" min="0" step="1">
               <button type="button" class="btn" id="applyTotal">Übernehmen</button>
             </div>
-            <p class="note">Der Stand wird nur in diesem Browser auf diesem Gerät gespeichert. Fehlt er (anderes Gerät, Verlauf gelöscht), hier die Zahl eintragen – oder die Adresse mit <b>?p=25</b> aufrufen (25 = aktueller Stand).</p>
+            <p class="note">Der Stand wird nur in diesem Browser auf diesem Gerät gespeichert. Fehlt er (anderes Gerät, Verlauf gelöscht), hier die Zahl eintragen – oder die Adresse mit <b>?p=40</b> aufrufen (40 = Stand nach dem 01.10.).</p>
           </fieldset>
           <label class="field" for="goal"><span>Plätze auf der Bühne = Ziel (Konzert)</span>
             <input type="number" id="goal" min="20" max="200" step="5">
@@ -169,14 +169,15 @@ body.present .float{display:flex}
   // Aufgaben pro Stundentag (Datum JJJJ-MM-TT). Gilt einmal am jeweiligen Tag; was danach von Hand
   // in den Feldern geändert wird, bleibt bis zum nächsten Tag. start = Stand, falls der Browser nichts gespeichert hat.
   const PLAN = {
-    '2026-10-01': {start: 25, chips: ['🎤 Stimm-Experiment +5', '✏️ Stundenblatt +5', '👂 Hör-Rätsel +5']}
+    '2026-10-01': {start: 25, chips: ['🎤 Stimm-Experiment +5', '✏️ Stundenblatt +5', '👂 Hör-Rätsel +5']},
+    '2026-10-29': {start: 40, chips: ['✏️ Stundenblatt +5', '👂 Vier Ecken +5', '🎵 Tetris-Playalong +5']}
   };
 
   function start(){
     return {
-      total: 25, goal: 140, sound: true, history: [],
-      log: [{label: 'Stunde 1 (17.09.)', plus: 10}, {label: 'Stunde 2 (24.09.)', plus: 15}],
-      chips: ['🎧 Hör-Detektiv +5', '✏️ Stundenblatt +5', '🎵 Tetris-Playalong +5']
+      total: 40, goal: 140, sound: true, history: [],
+      log: [{label: 'Stunde 1 (17.09.)', plus: 10}, {label: 'Stunde 2 (24.09.)', plus: 15}, {label: 'Stunde 3 (01.10.)', plus: 15}],
+      chips: ['✏️ Stundenblatt +5', '👂 Vier Ecken +5', '🎵 Tetris-Playalong +5']
     };
   }
   let state = start(), hadSaved = false;
