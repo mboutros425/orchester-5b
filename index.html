@@ -117,7 +117,7 @@ body.present .float{display:flex}
               <input type="number" id="setTotal" min="0" step="1">
               <button type="button" class="btn" id="applyTotal">Übernehmen</button>
             </div>
-            <p class="note">Der Stand wird nur in diesem Browser auf diesem Gerät gespeichert. Fehlt er (anderes Gerät, Verlauf gelöscht), hier die Zahl eintragen – oder die Adresse mit <b>?p=60</b> aufrufen (60 = Stand nach dem 03.11.).</p>
+            <p class="note">Der Stand wird nur in diesem Browser auf diesem Gerät gespeichert. Fehlt er (anderes Gerät, Verlauf gelöscht), hier die Zahl eintragen – oder die Adresse mit <b>?p=65</b> aufrufen (65 = Stand nach dem 05.11.).</p>
           </fieldset>
           <label class="field" for="goal"><span>Plätze auf der Bühne = Ziel (Konzert)</span>
             <input type="number" id="goal" min="20" max="200" step="5">
@@ -173,14 +173,14 @@ body.present .float{display:flex}
     '2026-10-29': {start: 40, chips: ['✏️ Stundenblatt +5', '👂 Vier Ecken +5', '🎵 Tetris-Playalong +5']},
     '2026-11-03': {start: 55, chips: ['✏️ Stundenblatt +5', '👂 Hör-Rätsel +5']},
     '2026-11-05': {start: 60, chips: ['✏️ Stundenblatt +5', '👂 Drei Ecken +5']},
-    '2026-11-12': {chips: ['✏️ Stundenblatt +5', '👂 Hörrunde +5']},
+    '2026-11-12': {start: 65, chips: ['✏️ Stundenblatt +5', '👂 Hörrunde +5']},
     '2026-11-19': {chips: ['✏️ Stundenblatt +5', '🎻 Orchester bauen +5', '🎵 Tetris-Playalong +5']},
     '2026-12-03': {chips: ['✏️ Stundenblatt +5', '🎻 Aufstellung +5', '🎼 Konzert +5']}
   };
 
   function start(){
     return {
-      total: 60, goal: 140, sound: true, history: [],
+      total: 65, goal: 140, sound: true, history: [],
       log: [{label: 'Stunde 1 (17.09.)', plus: 10}, {label: 'Stunde 2 (24.09.)', plus: 15}, {label: 'Stunde 3 (01.10.)', plus: 15}, {label: 'Stunde 4 (29.10.)', plus: 15}, {label: 'UB (03.11.)', plus: 5}],
       chips: ['✏️ Stundenblatt +5', '👂 Drei Ecken +5']
     };
